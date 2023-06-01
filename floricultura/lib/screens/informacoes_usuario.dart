@@ -53,6 +53,7 @@ class _InfoUsuario extends State<InfoUsuario> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            const Retornar(),
             const Icone(iconData: Icons.account_circle),
             const WidgetTexto(
               text: 'Minha Conta',

@@ -24,6 +24,7 @@ class HistoricoPedidos extends StatelessWidget {
           child: Column(
             children: const [
               Icone(iconData: Icons.receipt_long),
+              Retornar(),
               WidgetTexto(
                 text: 'Meus Pedidos',
                 tamanho: 30,
