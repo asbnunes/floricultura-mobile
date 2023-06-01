@@ -1,5 +1,3 @@
-import 'package:floricultura/widgets/botao_geral.dart';
-import 'package:floricultura/widgets/divisor.dart';
 import 'package:floricultura/widgets/icone.dart';
 import 'package:floricultura/widgets/navigation_bar.dart';
 import 'package:floricultura/widgets/preview_itens.dart';

@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:floricultura/screens/cadastro.dart';
 import 'package:floricultura/screens/carrinho.dart';
 import 'package:floricultura/screens/detalhes_do_pedido.dart';
