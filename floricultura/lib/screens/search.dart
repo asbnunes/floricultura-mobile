@@ -1,5 +1,11 @@
+import 'package:floricultura/widgets/botao_imagem.dart';
+import 'package:floricultura/widgets/divisor.dart';
+import 'package:floricultura/widgets/icone.dart';
 import 'package:floricultura/widgets/search_button.dart';
+import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/custom_search_delegate.dart';
 import '../widgets/navigation_bar.dart';
 
 class Search extends StatefulWidget {

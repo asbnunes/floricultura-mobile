@@ -1,3 +1,4 @@
+import 'package:floricultura/widgets/botao_imagem.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,7 @@ class PedidoAnterior extends StatelessWidget {
       required this.dataPedido,
       required this.statusPedido,
       required this.alignment,
-      this.fontWeight,
-      required this.imagem})
+      this.fontWeight, required this.imagem})
       : super(key: key);
 
   @override
