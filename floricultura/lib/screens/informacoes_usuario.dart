@@ -1,6 +1,5 @@
 import 'package:floricultura/widgets/botao_geral.dart';
 import 'package:floricultura/widgets/botao_editar_info.dart';
-import 'package:floricultura/widgets/botao_retornar.dart';
 import 'package:floricultura/widgets/divisor.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
