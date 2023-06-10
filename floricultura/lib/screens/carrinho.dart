@@ -8,9 +8,14 @@ import 'package:flutter/material.dart';
 import '../widgets/carrinho_item.dart';
 import '../widgets/navigation_bar.dart';
 
-class Carrinho extends StatelessWidget {
+class Carrinho extends StatefulWidget {
   const Carrinho({super.key});
 
+  @override
+  _CarrinhoState createState() => _CarrinhoState();
+}
+
+class _CarrinhoState extends State<Carrinho> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +44,8 @@ class Carrinho extends StatelessWidget {
               const SizedBox(height: 20),
               Container(
                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                child: Row(
-                  children: const <Widget>[
+                child: const Row(
+                  children: <Widget>[
                     Flexible(
                       child: CampoTexto(
                         nome: 'Cupom de Desconto',

@@ -33,8 +33,8 @@ class DetalhesPedido extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: const [
+                      child: const Column(
+                        children: [
                           WidgetTexto(
                             text: 'Status do Pedido',
                             tamanho: 20,
@@ -54,8 +54,8 @@ class DetalhesPedido extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: const [
+                      child: const Column(
+                        children: [
                           WidgetTexto(
                             text: 'Detalhes do Pedido:',
                             tamanho: 20,
@@ -79,8 +79,8 @@ class DetalhesPedido extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: const [
+                      child: const Column(
+                        children: [
                           WidgetTexto(
                             text: 'Endereço de Entrega',
                             tamanho: 20,

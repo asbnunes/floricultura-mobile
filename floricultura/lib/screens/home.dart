@@ -23,11 +23,11 @@ class _HomeState extends State<Home> {
               fit: BoxFit.cover,
             ),
           ),
-          child: Padding(
+          child: const Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Icone(iconData: Icons.home),
                 WidgetTexto(
                   text: 'Floricultura',

@@ -3,9 +3,15 @@ import '../widgets/botao_novo_usuario.dart';
 import '../widgets/campo_texto.dart';
 import '../widgets/botao_geral.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+    @override
+  _LoginScreenState createState() => _LoginScreenState();
+
+}
+
+class _LoginScreenState extends State<LoginScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,16 +22,16 @@ class LoginScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
+        child: const Column(
           children: [
             Expanded(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       CampoTexto(
                         nome: 'Email',
                         isEditable: true,
