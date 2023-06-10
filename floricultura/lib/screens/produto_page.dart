@@ -48,6 +48,7 @@ class ProdutoPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: const Botao(
                         text: 'Adicionar ao carrinho',
+                        screenName: 'carrinho',
                       ),
                     ),
                     const SizedBox(height: 20),
