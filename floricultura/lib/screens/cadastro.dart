@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import '../widgets/campo_texto.dart';
 import '../widgets/botao_geral.dart';
 
-class Cadastro extends StatelessWidget {
+class Cadastro extends StatefulWidget {
   const Cadastro({super.key});
+  
+  @override
+  _CadastroState createState() => _CadastroState();
+}
 
+class _CadastroState extends State<Cadastro>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,18 +22,18 @@ class Cadastro extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
+        child: const Column(
           children: [
             Expanded(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Row(
-                        children: const <Widget>[
+                        children: <Widget>[
                           Flexible(
                             child: CampoTexto(
                               nome: 'Nome',
@@ -43,21 +48,21 @@ class Cadastro extends StatelessWidget {
                           )
                         ],
                       ),
-                      const CampoTexto(
+                      CampoTexto(
                         nome: 'Email',
                         isEditable: true,
                         textInputType: TextInputType.emailAddress,
                       ),
-                      const CampoTexto(
+                      CampoTexto(
                         nome: 'Senha',
                         isEditable: true,
                         obscure: true,
                       ),
-                      const Botao(
+                      Botao(
                         text: 'Registrar',
                         screenName: 'home',
                       ),
-                      const RedirecionarLogin()
+                      RedirecionarLogin()
                     ],
                   ),
                 ),

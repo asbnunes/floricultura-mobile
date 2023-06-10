@@ -8,9 +8,15 @@ import '../widgets/navigation_bar.dart';
 import '../widgets/preco_item.dart';
 import '../widgets/widget_texto.dart';
 
-class Pagamento extends StatelessWidget {
+class Pagamento extends StatefulWidget {
   const Pagamento({Key? key}) : super(key: key);
 
+  @override
+  _PagamentoState createState() => _PagamentoState();
+
+}
+
+class _PagamentoState extends State<Pagamento>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +54,8 @@ class Pagamento extends StatelessWidget {
                 isEditable: true,
                 textInputType: TextInputType.name,
               ),
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Expanded(
                     child: CampoTexto(
                       isEditable: true,

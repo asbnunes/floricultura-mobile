@@ -20,8 +20,8 @@ class HistoricoPedidos extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          child: Column(
-            children: const [
+          child: const Column(
+            children: [
               Icone(iconData: Icons.receipt_long),
               WidgetTexto(
                 text: 'Meus Pedidos',
