@@ -6,6 +6,7 @@ class CampoTexto extends StatefulWidget {
   final String? nome;
   final bool obscure;
   final TextInputType textInputType;
+  final String? Function(String?)? validator;
 
   const CampoTexto(
       {Key? key,
@@ -14,6 +15,7 @@ class CampoTexto extends StatefulWidget {
       required this.nome,
       this.obscure = false,
       this.textInputType = TextInputType.text,
+      this.validator,
       })
       : super(key: key);
 
@@ -22,6 +24,9 @@ class CampoTexto extends StatefulWidget {
 }
 
 class _CampoTextoState extends State<CampoTexto> {
+
+static String? defaultValidator(String? value) => null;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,7 +40,7 @@ class _CampoTextoState extends State<CampoTexto> {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: TextField(
+        child: TextFormField(
           controller: widget.controller,
           enabled: widget.isEditable,
           decoration: InputDecoration(
@@ -44,6 +49,7 @@ class _CampoTextoState extends State<CampoTexto> {
           ),
           keyboardType: widget.textInputType,
           obscureText: widget.obscure,
+          validator: widget.validator ?? defaultValidator,
         ),
       ),
     );
