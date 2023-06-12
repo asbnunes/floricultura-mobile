@@ -12,6 +12,23 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen>{
+
+  final formKey = GlobalKey<FormState>();
+
+  void login() {
+  if (formKey.currentState?.validate() == true) {
+    const routeName = '/home';
+    Navigator.pushNamed(context, routeName);
+  }
+}
+
+  String? validate(String? value){
+    if(value == null || value.isEmpty) {
+      return 'Campo obrigatório';
+    }
+      return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,31 +39,36 @@ class _LoginScreenState extends State<LoginScreen>{
             fit: BoxFit.cover,
           ),
         ),
-        child: const Column(
+        child: Column(
           children: [
             Expanded(
               child: Padding(
                 padding:
-                    EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: Center(
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: Form(
+                  key: formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       CampoTexto(
                         nome: 'Email',
                         isEditable: true,
                         textInputType: TextInputType.emailAddress,
+                        validator: validate,
                       ),
                       CampoTexto(
                         nome: 'Senha',
                         isEditable: true,
                         obscure: true,
+                        validator: validate,
                       ),
                       Botao(
                         text: 'Login',
-                        screenName: 'home',
+                        onPressed: login,
                       ),
-                      RedirecionarCadastro(),
+                      const RedirecionarCadastro(),
+                      TextButton(onPressed:() {}, child: const Text('Redefinir senha'))
                     ],
                   ),
                 ),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class Botao extends StatelessWidget {
   final String text;
   final String? screenName;
-  const Botao({Key? key, required this.text, this.screenName}) : super(key: key);
+  final VoidCallback? onPressed;
+  const Botao({Key? key, required this.text, this.screenName, this.onPressed,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,13 @@ class Botao extends StatelessWidget {
       'meus-pedidos': '/meus-pedidos',
     };
 
+    void navigate(){
+      final routeName = routes[screenName];
+          if (routeName != null) {
+            Navigator.pushNamed(context, routeName);
+          }
+    }
+
     return Container(
       padding: const EdgeInsets.only(bottom: 5),
       alignment: Alignment.center,
@@ -34,13 +42,8 @@ class Botao extends StatelessWidget {
           backgroundColor: const Color(0xffffb3b3),
           foregroundColor: const Color(0xff6c4848),
         ),
+        onPressed: onPressed ?? navigate,
         child: Text(text),
-        onPressed: () {
-          final routeName = routes[screenName];
-          if (routeName != null) {
-            Navigator.pushNamed(context, routeName);
-          }
-        },
       ),
     );
   }
