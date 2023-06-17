@@ -1,7 +1,5 @@
 import 'package:floricultura/models/loja_flores.dart';
-import 'package:floricultura/utils/formatador_texto.dart';
 import 'package:floricultura/widgets/botao_geral.dart';
-import 'package:floricultura/widgets/campo_texto.dart';
 import 'package:floricultura/widgets/divisor.dart';
 import 'package:floricultura/widgets/flor_tile.dart';
 import 'package:floricultura/widgets/icone.dart';
@@ -34,8 +32,6 @@ class _CarrinhoState extends State<Carrinho> {
     for (var flor in carrinho) {
       total += flor.preco;
     }
-
-    String formattedTotal = FormatadorPreco.formatPrice(total);
 
     return Consumer<LojaFlores>(
       builder: (context, value, child) => Scaffold(
