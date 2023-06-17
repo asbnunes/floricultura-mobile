@@ -1,8 +1,10 @@
+import 'package:floricultura/services/auth_services.dart';
 import 'package:floricultura/widgets/botao_geral.dart';
 import 'package:floricultura/widgets/botao_editar_info.dart';
 import 'package:floricultura/widgets/divisor.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/campo_texto.dart';
 import '../widgets/icone.dart';
@@ -106,13 +108,13 @@ class _InfoUsuario extends State<InfoUsuario> {
                         onPressed: toggleEdit,
                         isEditable: _isEditable,
                       ),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(20, 50, 20, 0),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
                         child: FractionallySizedBox(
-                          widthFactor: 0.3,
+                          widthFactor: 0.75,
                           child: Botao(
                             text: 'Sair',
-                            screenName: 'login',
+                            onPressed: () => context.read<AuthService>().logout(),
                           ),
                         ),
                       ),

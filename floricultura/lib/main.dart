@@ -7,6 +7,8 @@ import 'package:floricultura/screens/home.dart';
 import 'package:floricultura/screens/informacoes_usuario.dart';
 import 'package:floricultura/screens/pagamento.dart';
 import 'package:floricultura/screens/search.dart';
+import 'package:floricultura/services/auth_services.dart';
+import 'package:floricultura/widgets/auth_check.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/catalogo.dart';
@@ -20,7 +22,14 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthService()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -34,7 +43,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
-          '/': (context) => const LoginScreen(),
+          '/': (context) => const AuthCheck(),
           '/login': (context) => const LoginScreen(),
           '/cadastro': (context) => const Cadastro(),
           '/search': (context) => Search(),

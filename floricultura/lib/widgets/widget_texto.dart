@@ -11,7 +11,7 @@ class WidgetTexto extends StatelessWidget {
       {Key? key,
       required this.text,
       this.tamanho,
-      required this.alignment,
+      this.alignment = Alignment.center,
       this.fontWeight,
       this.textColor = Colors.black})
       : super(key: key);
