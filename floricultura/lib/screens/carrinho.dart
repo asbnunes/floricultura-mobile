@@ -1,11 +1,15 @@
+import 'package:floricultura/models/loja_flores.dart';
+import 'package:floricultura/utils/formatador_texto.dart';
 import 'package:floricultura/widgets/botao_geral.dart';
 import 'package:floricultura/widgets/campo_texto.dart';
 import 'package:floricultura/widgets/divisor.dart';
+import 'package:floricultura/widgets/flor_tile.dart';
 import 'package:floricultura/widgets/icone.dart';
 import 'package:floricultura/widgets/preco_item.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
-import '../widgets/carrinho_item.dart';
+import 'package:provider/provider.dart';
+import '../models/flor.dart';
 import '../widgets/navigation_bar.dart';
 
 class Carrinho extends StatefulWidget {
@@ -16,11 +20,26 @@ class Carrinho extends StatefulWidget {
 }
 
 class _CarrinhoState extends State<Carrinho> {
+
+  void removerCarrinho(Flor flor){
+    Provider.of<LojaFlores>(context, listen: false).removerDoCarrinho(flor);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
+
+    var carrinho = Provider.of<LojaFlores>(context).carrinho;
+    double total = 0;
+
+    for (var flor in carrinho) {
+      total += flor.preco;
+    }
+
+    String formattedTotal = FormatadorPreco.formatPrice(total);
+
+    return Consumer<LojaFlores>(
+      builder: (context, value, child) => Scaffold(
+        body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("images/background.jpg"),
@@ -35,57 +54,29 @@ class _CarrinhoState extends State<Carrinho> {
                 tamanho: 30,
                 alignment: Alignment.center,
               ),
-              const SizedBox(height: 25),
-              const CarrinhoItem(
-                  nome: 'Item 1', imagem: 'images/orquidia.jpg', preco: 180.00),
-              const SizedBox(height: 10),
-              const CarrinhoItem(
-                  nome: 'Item 2', imagem: 'images/orquidia.jpg', preco: 180.00),
-              const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
-                child: const Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: CampoTexto(
-                        nome: 'Cupom de Desconto',
-                        isEditable: true,
-                      ),
-                    ),
-                    Flexible(
-                      child: Botao(
-                        text: 'Adicionar Cupom',
-                      ),
-                    ),
-                  ],
+              Expanded(
+                child: ListView.builder(
+                  itemCount: value.carrinho.length,
+                  itemBuilder: (context, index) {
+                    Flor flores = value.carrinho[index];
+                    return FlorTile(
+                        flor: flores,
+                        displayCor: true,
+                        icon: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => removerCarrinho(flores),
+                        ),);
+                  },
                 ),
               ),
               const SizedBox(height: 20),
               const LinhaDivisora(),
               const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: PrecoItem(
-                  texto: 'Subtotal:',
-                  valor: 360.00,
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                child: PrecoItem(
-                  texto: 'Desconto:',
-                  valor: 10.00,
-                ),
-              ),
-              const SizedBox(height: 20),
-              const LinhaDivisora(),
-              const SizedBox(height: 20),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: PrecoItem(
                   texto: 'Total:',
-                  valor: 350.00,
+                  valor: total,
                   fontSize: 25,
                 ),
               ),
@@ -104,8 +95,8 @@ class _CarrinhoState extends State<Carrinho> {
             ],
           ),
         ),
+        bottomNavigationBar: const NavBar(),
       ),
-      bottomNavigationBar: const NavBar(),
     );
   }
 }

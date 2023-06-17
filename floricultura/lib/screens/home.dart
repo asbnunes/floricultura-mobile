@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
                       itemCount: value.catalogoFlores.length,
                       itemBuilder: (context, index) {
                         Flor flores = value.catalogoFlores[index];
-                        return FlorTile(flor: flores);
+                        return FlorTile(flor: flores, icon: const Icon(Icons.navigate_next));
                       },
                     ),
                   ),

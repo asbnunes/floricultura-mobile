@@ -1,32 +1,44 @@
+import 'package:flutter/material.dart';
+
 import '../models/flor.dart';
 
-class LojaFlores {
+class LojaFlores extends ChangeNotifier{
   // catalogo de flores
   final List<Flor> _catalogo = [
     Flor(
       nome: 'Cravo',
-      preco: 'R\$50,00',
+      preco: 75.0,
       imagem: 'images/cravo.png',
+      opcoesDeCores: ['Branco', 'Vermelho', 'Amarelo'],
+      corEscolhida: 'Branco',
     ),
     Flor(
       nome: 'Margarida',
-      preco: 'R\$40,00',
+      preco: 80.0,
       imagem: 'images/margarida.png',
+      opcoesDeCores: ['Branco', 'Roxo', 'Amarelo'],
+      corEscolhida: 'Branco',
     ),
     Flor(
       nome: 'Orquídia',
-      preco: 'R\$45,00',
+      preco: 90.0,
       imagem: 'images/orquidia.jpg',
+      opcoesDeCores: ['Branco', 'Rosa', 'Vermelho'],
+      corEscolhida: 'Branco',
     ),
     Flor(
       nome: 'Rosa',
-      preco: 'R\$60,00',
+      preco: 120.0,
       imagem: 'images/rosa.png',
+      opcoesDeCores: ['Branco', 'Vermelho', 'Rosa'],
+      corEscolhida: 'Branco',
     ),
     Flor(
       nome: 'Tulipa',
-      preco: 'R\$55,00',
+      preco: 110.0,
       imagem: 'images/tulipa.png',
+      opcoesDeCores: ['Branco', 'Vermelho', 'Amarelo', 'Rosa'],
+      corEscolhida: 'Branco',
     ),
   ];
 
@@ -39,4 +51,15 @@ class LojaFlores {
   //get carrinho
   List<Flor> get carrinho => _carrinho;
 
+  //adicionar ao carrinho
+  void adicionarAoCarrinho(Flor flor){
+    _carrinho.add(flor);
+    notifyListeners();
+  }
+
+  //remover do carrinho
+  void removerDoCarrinho(Flor flor){
+    _carrinho.remove(flor);
+    notifyListeners();
+  }
 }

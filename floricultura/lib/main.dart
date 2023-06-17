@@ -6,7 +6,6 @@ import 'package:floricultura/screens/historico_de_pedidos.dart';
 import 'package:floricultura/screens/home.dart';
 import 'package:floricultura/screens/informacoes_usuario.dart';
 import 'package:floricultura/screens/pagamento.dart';
-import 'package:floricultura/screens/pagina_do_produto.dart';
 import 'package:floricultura/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
