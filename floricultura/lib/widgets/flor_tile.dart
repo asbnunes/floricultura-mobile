@@ -2,13 +2,21 @@ import 'package:floricultura/screens/pagina_do_produto.dart';
 import 'package:flutter/material.dart';
 
 import '../models/flor.dart';
+import '../utils/formatador_texto.dart';
 
 class FlorTile extends StatelessWidget {
   final Flor flor;
-  const FlorTile({super.key, required this.flor});
+  final Widget icon;
+  final bool displayCor;
+  const FlorTile({super.key, required this.flor, required this.icon, this.displayCor = false});
 
   @override
   Widget build(BuildContext context) {
+
+    String titleTexto = displayCor ? '${flor.nome} ${flor.corEscolhida}' : flor.nome;
+
+    String precoFormatado = FormatadorPreco.formatPrice(flor.preco);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
@@ -29,10 +37,10 @@ class FlorTile extends StatelessWidget {
               );
         },
         child: ListTile(
-          title: Text(flor.nome),
-          subtitle: Text(flor.preco),
+          title: Text(titleTexto),
+          subtitle: Text(precoFormatado),
           leading: Image.asset(flor.imagem),
-          trailing: const Icon(Icons.navigate_next),
+          trailing: icon,
         ),
       ),
     );

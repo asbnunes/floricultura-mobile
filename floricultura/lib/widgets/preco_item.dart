@@ -1,3 +1,4 @@
+import 'package:floricultura/utils/formatador_texto.dart';
 import 'package:flutter/material.dart';
 
 class PrecoItem extends StatelessWidget {
@@ -14,7 +15,9 @@ class PrecoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String valorArredondado = valor.toStringAsFixed(2);
+
+    String valorFormatado = FormatadorPreco.formatPrice(valor);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Row(
@@ -25,7 +28,7 @@ class PrecoItem extends StatelessWidget {
             style: TextStyle(fontSize: fontSize),
           ),
           Text(
-            'R\$$valorArredondado',
+            valorFormatado,
             style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w300),
           ),
         ],

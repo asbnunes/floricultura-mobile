@@ -1,8 +1,11 @@
 import 'package:floricultura/models/flor.dart';
+import 'package:floricultura/models/loja_flores.dart';
+import 'package:floricultura/utils/formatador_texto.dart';
 import 'package:floricultura/widgets/botao_geral.dart';
 import 'package:floricultura/widgets/imagem_header.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../widgets/navigation_bar.dart';
 
 class PaginaDoProduto extends StatefulWidget {
@@ -25,6 +28,31 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
 
   @override
   Widget build(BuildContext context) {
+    
+    void addCarrinho(Flor flor) {
+      Flor copyFlor = Flor(
+        nome: flor.nome,
+        preco: flor.preco,
+        imagem: flor.imagem,
+        opcoesDeCores: List<String>.from(flor.opcoesDeCores),
+        corEscolhida: flor.corEscolhida,
+      );
+
+      Provider.of<LojaFlores>(context, listen: false)
+          .adicionarAoCarrinho(copyFlor);
+
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text("Adicionado ao carrinho com sucesso"),
+        ),
+      ).then((value) {
+        Navigator.pop(context);
+      });
+    }
+
+    String precoFormatado = FormatadorPreco.formatPrice(widget.flor.preco);
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -41,7 +69,7 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
               Column(
                 children: [
                   WidgetTexto(
-                    text: widget.flor.preco,
+                    text: precoFormatado,
                     tamanho: 30,
                     alignment: Alignment.center,
                   ),
@@ -67,7 +95,8 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
                     groupValue: corEscolhida,
                     onChanged: (value) {
                       setState(() {
-                        corEscolhida = value as String;
+                        corEscolhida = value.toString();
+                        widget.flor.corEscolhida = corEscolhida;
                       });
                     },
                   );
@@ -75,9 +104,9 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: const Botao(
+                child: Botao(
                   text: 'Adicionar ao carrinho',
-                  screenName: 'carrinho',
+                  onPressed: () => addCarrinho(widget.flor),
                 ),
               ),
               const SizedBox(height: 20),
