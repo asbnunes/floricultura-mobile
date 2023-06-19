@@ -9,13 +9,8 @@ class Botao extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, String> routes = {
-      'login': '/login',
-      'cadastro': '/cadastro',
-      'info-usuario': '/info-usuario',
       'catalogo' : '/catalogo',
-      'home' : '/home',
       'main' : '/main',
-      'carrinho' : '/carrinho',
       'detalhes-pedido' : '/detalhes-pedido',
       'produto-page' : '/produto-page',
       'pagamento' : '/pagamento',

@@ -87,6 +87,7 @@ class _CarrinhoState extends State<Carrinho> {
                   screenName: 'pagamento',
                 ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

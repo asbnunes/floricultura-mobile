@@ -52,12 +52,12 @@ class _InfoUsuario extends State<InfoUsuario> {
                         text: 'Login como: ${user.email!}',
                         tamanho: 20,
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       const Botao(
                         text: 'Meus Pedidos',
                         screenName: 'meus-pedidos',
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       Botao(
                         text: 'Sair',
                         onPressed: () => context.read<AuthService>().logout(),

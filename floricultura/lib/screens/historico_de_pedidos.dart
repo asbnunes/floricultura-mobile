@@ -1,3 +1,4 @@
+import 'package:floricultura/widgets/botao_retornar.dart';
 import 'package:floricultura/widgets/divisor.dart';
 import 'package:floricultura/widgets/pedido_anterior.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class HistoricoPedidos extends StatelessWidget {
           ),
           child: const Column(
             children: [
+              Retornar(),
               Icone(iconData: Icons.receipt_long),
               WidgetTexto(
                 text: 'Meus Pedidos',

@@ -14,7 +14,7 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
 
   int _currentIndex = 0;
-  List<Widget> _screens = [
+  final List<Widget> _screens = const [
     Home(),
     Carrinho(),
     InfoUsuario(),
@@ -35,14 +35,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
         children: _screens,
       ),
       bottomNavigationBar: GNav(
-        backgroundColor: Color(0xffffb3b3),
-        color: Color.fromARGB(176, 108, 72, 72),
-        activeColor: Color(0xff6c4848),
-        padding: EdgeInsets.all(18),
+        backgroundColor: const Color(0xffffb3b3),
+        color: const Color.fromARGB(176, 108, 72, 72),
+        activeColor: const Color(0xff6c4848),
+        padding: const EdgeInsets.all(18),
         gap: 12,
         selectedIndex: _currentIndex,
         onTabChange: _onTapped,
-        tabs: [
+        tabs: const [
           GButton(icon: Icons.home, text: 'Home',),
           GButton(icon: Icons.shopping_cart, text: 'Carrinho',),
           GButton(icon: Icons.account_circle,text: 'Minha Conta',),
