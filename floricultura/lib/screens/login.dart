@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isLogin = acao;
       if (isLogin) {
-        titulo = 'Bem Vindo';
+        titulo = 'Bem-vindo!';
         action = 'Login';
         toggle = 'Não possui conta? Cadastre-se agora!';
       } else {
@@ -131,10 +131,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: loginCheck,
                 ),
                 TextButton(
-                    onPressed: () => setFormAction(!isLogin),
-                    child: Text(toggle)),
-                TextButton(
-                    onPressed: () {}, child: const Text('Redefinir senha'))
+                  onPressed: () => setFormAction(!isLogin),
+                  child: Text(toggle),
+                ),
+                Visibility(
+                  visible: isLogin,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/redefinir');
+                    },
+                    child: const Text('Redefinir senha'),
+                  ),
+                )
               ],
             ),
           ),
