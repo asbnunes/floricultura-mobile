@@ -1,6 +1,6 @@
-import 'package:floricultura/screens/home.dart';
 import 'package:floricultura/screens/login.dart';
 import 'package:floricultura/services/auth_services.dart';
+import 'package:floricultura/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,9 +19,9 @@ class _AuthCheckState extends State<AuthCheck> {
     if (auth.isLoading) {
       return loading();
     } else if (auth.usuario == null) {
-      return LoginScreen();
+      return const LoginScreen();
     } else {
-      return Home();
+      return const BottomNavBar();
     }
   }
 

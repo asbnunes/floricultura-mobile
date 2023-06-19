@@ -1,7 +1,6 @@
 import 'package:floricultura/models/loja_flores.dart';
 import 'package:floricultura/widgets/flor_tile.dart';
 import 'package:floricultura/widgets/icone.dart';
-import 'package:floricultura/widgets/navigation_bar.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +52,6 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        bottomNavigationBar: const NavBar(),
       ),
     );
   }

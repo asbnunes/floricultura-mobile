@@ -42,6 +42,7 @@ dependencies:
   cloud_firestore: 
   firebase_storage: 
   firebase_messaging: 
+  google_nav_bar: ^5.0.6
 
 dev_dependencies:
   flutter_test:

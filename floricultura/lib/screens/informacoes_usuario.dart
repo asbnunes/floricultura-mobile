@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/icone.dart';
-import '../widgets/navigation_bar.dart';
 
 class InfoUsuario extends StatefulWidget {
   const InfoUsuario({Key? key}) : super(key: key);
@@ -53,12 +52,12 @@ class _InfoUsuario extends State<InfoUsuario> {
                         text: 'Login como: ${user.email!}',
                         tamanho: 20,
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       const Botao(
                         text: 'Meus Pedidos',
                         screenName: 'meus-pedidos',
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       Botao(
                         text: 'Sair',
                         onPressed: () => context.read<AuthService>().logout(),
@@ -71,7 +70,6 @@ class _InfoUsuario extends State<InfoUsuario> {
           ],
         ),
       ),
-      bottomNavigationBar: const NavBar(),
     );
   }
 }
