@@ -1,3 +1,4 @@
+import 'package:floricultura/database/db_firestore.dart';
 import 'package:floricultura/models/loja_flores.dart';
 import 'package:floricultura/widgets/flor_tile.dart';
 import 'package:floricultura/widgets/icone.dart';
@@ -15,6 +16,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late Future<List<Flor>> _flores;
+  final DBFirestore _dbFirestore = DBFirestore();
+
+  @override
+  void initState() {
+    super.initState();
+    _flores = _dbFirestore.fetchFlores();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LojaFlores>(
@@ -39,11 +49,22 @@ class _HomeState extends State<Home> {
                     alignment: Alignment.center,
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: value.catalogoFlores.length,
-                      itemBuilder: (context, index) {
-                        Flor flores = value.catalogoFlores[index];
-                        return FlorTile(flor: flores, icon: const Icon(Icons.navigate_next));
+                    child: FutureBuilder<List<Flor>>(
+                      future: _flores,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return ListView.builder(
+                            itemCount: snapshot.data?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              final flores = snapshot.data![index];
+                              return FlorTile(
+                                  flor: flores,
+                                  icon: const Icon(Icons.navigate_next));
+                            },
+                          );
+                        }
                       },
                     ),
                   ),
