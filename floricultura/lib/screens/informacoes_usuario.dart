@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/icone.dart';
-import '../widgets/navigation_bar.dart';
 
 class InfoUsuario extends StatefulWidget {
   const InfoUsuario({Key? key}) : super(key: key);
@@ -71,7 +70,6 @@ class _InfoUsuario extends State<InfoUsuario> {
           ],
         ),
       ),
-      bottomNavigationBar: const NavBar(),
     );
   }
 }

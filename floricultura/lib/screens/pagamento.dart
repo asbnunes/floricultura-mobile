@@ -3,7 +3,6 @@ import 'package:floricultura/widgets/divisor.dart';
 import 'package:flutter/material.dart';
 import 'package:floricultura/widgets/botao_retornar.dart';
 import '../widgets/campo_texto.dart';
-import '../widgets/navigation_bar.dart';
 
 import '../widgets/preco_item.dart';
 import '../widgets/widget_texto.dart';
@@ -119,7 +118,6 @@ class _PagamentoState extends State<Pagamento>{
           ),
         ),
       ),
-      bottomNavigationBar: const NavBar(),
     );
   }
 }

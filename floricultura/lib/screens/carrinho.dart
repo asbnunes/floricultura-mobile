@@ -8,7 +8,6 @@ import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/flor.dart';
-import '../widgets/navigation_bar.dart';
 
 class Carrinho extends StatefulWidget {
   const Carrinho({super.key});
@@ -91,7 +90,6 @@ class _CarrinhoState extends State<Carrinho> {
             ],
           ),
         ),
-        bottomNavigationBar: const NavBar(),
       ),
     );
   }

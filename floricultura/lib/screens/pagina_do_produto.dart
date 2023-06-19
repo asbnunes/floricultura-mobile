@@ -6,7 +6,6 @@ import 'package:floricultura/widgets/imagem_header.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/navigation_bar.dart';
 
 class PaginaDoProduto extends StatefulWidget {
   final Flor flor;
@@ -114,7 +113,6 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
           ),
         ),
       ),
-      bottomNavigationBar: const NavBar(),
     );
   }
 }

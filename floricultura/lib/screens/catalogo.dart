@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:floricultura/widgets/produto.dart';
 import 'package:floricultura/widgets/botao_retornar.dart';
 
-import '../widgets/navigation_bar.dart';
 import '../widgets/widget_texto.dart';
 
 class CatalogoPage extends StatelessWidget {
@@ -81,7 +80,6 @@ class CatalogoPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const NavBar(),
     );
   }
 }

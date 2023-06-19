@@ -1,6 +1,5 @@
 import 'package:floricultura/widgets/search_button.dart';
 import 'package:flutter/material.dart';
-import '../widgets/navigation_bar.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -25,7 +24,6 @@ class _SearchState extends State<Search> {
           ),
         ),
       ),
-      bottomNavigationBar: const NavBar(),
     );
   }
 }

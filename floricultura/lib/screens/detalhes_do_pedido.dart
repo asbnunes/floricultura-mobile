@@ -2,7 +2,6 @@ import 'package:floricultura/widgets/imagem_header.dart';
 import 'package:floricultura/widgets/preco_item.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/navigation_bar.dart';
 import '../widgets/widget_texto.dart';
 
 class DetalhesPedido extends StatelessWidget {
@@ -100,7 +99,6 @@ class DetalhesPedido extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const NavBar(),
     );
   }
 }
