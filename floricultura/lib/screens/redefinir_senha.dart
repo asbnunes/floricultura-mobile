@@ -1,4 +1,3 @@
-import 'package:floricultura/screens/login.dart';
 import 'package:floricultura/widgets/botao_geral.dart';
 import 'package:floricultura/widgets/campo_texto.dart';
 import 'package:flutter/material.dart';

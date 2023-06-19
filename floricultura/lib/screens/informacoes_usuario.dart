@@ -1,12 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floricultura/services/auth_services.dart';
 import 'package:floricultura/widgets/botao_geral.dart';
-import 'package:floricultura/widgets/botao_editar_info.dart';
 import 'package:floricultura/widgets/divisor.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/campo_texto.dart';
 import '../widgets/icone.dart';
 import '../widgets/navigation_bar.dart';
 
@@ -18,28 +17,7 @@ class InfoUsuario extends StatefulWidget {
 }
 
 class _InfoUsuario extends State<InfoUsuario> {
-  bool _isEditable = false;
-  final TextEditingController _nomeController = TextEditingController();
-  final TextEditingController _sobrenomeController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _senhaController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _nomeController.text = "André";
-    _sobrenomeController.text = "Bucar";
-    _emailController.text = "email@iesb.edu.br";
-    _senhaController.text = "senhasenha";
-  }
-
-  void toggleEdit() {
-    setState(
-      () {
-        _isEditable = !_isEditable;
-      },
-    );
-  }
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -71,52 +49,19 @@ class _InfoUsuario extends State<InfoUsuario> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        children: <Widget>[
-                          Flexible(
-                            child: CampoTexto(
-                              nome: 'Nome',
-                              isEditable: _isEditable,
-                              controller: _nomeController,
-                            ),
-                          ),
-                          Flexible(
-                            child: CampoTexto(
-                              nome: 'Sobreome',
-                              isEditable: _isEditable,
-                              controller: _sobrenomeController,
-                            ),
-                          )
-                        ],
+                      WidgetTexto(
+                        text: 'Login como: ${user.email!}',
+                        tamanho: 20,
                       ),
-                      CampoTexto(
-                        nome: 'Email',
-                        isEditable: _isEditable,
-                        controller: _emailController,
+                      SizedBox(height: 15),
+                      const Botao(
+                        text: 'Meus Pedidos',
+                        screenName: 'meus-pedidos',
                       ),
-                      CampoTexto(
-                        nome: 'Senha',
-                        isEditable: _isEditable,
-                        controller: _senhaController,
-                        obscure: true,
-                      ),
-                      CampoTexto(
-                        nome: 'Telefone',
-                        isEditable: _isEditable,
-                      ),
-                      BotaoEditarInfo(
-                        onPressed: toggleEdit,
-                        isEditable: _isEditable,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 50, 10, 0),
-                        child: FractionallySizedBox(
-                          widthFactor: 0.75,
-                          child: Botao(
-                            text: 'Sair',
-                            onPressed: () => context.read<AuthService>().logout(),
-                          ),
-                        ),
+                      SizedBox(height: 15),
+                      Botao(
+                        text: 'Sair',
+                        onPressed: () => context.read<AuthService>().logout(),
                       ),
                     ],
                   ),
