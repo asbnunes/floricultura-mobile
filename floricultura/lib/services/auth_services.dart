@@ -2,16 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floricultura/services/auth_exceptions.dart';
 import 'package:flutter/material.dart';
 
-class AuthService extends ChangeNotifier{
-  FirebaseAuth _auth = FirebaseAuth.instance;
+class AuthService extends ChangeNotifier {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   User? usuario;
   bool isLoading = true;
 
   AuthService() {
     _authCheck();
   }
-  
-  _authCheck(){
+
+  _authCheck() {
     _auth.authStateChanges().listen((User? user) {
       usuario = (user == null) ? null : user;
       isLoading = false;
@@ -19,7 +19,7 @@ class AuthService extends ChangeNotifier{
     });
   }
 
-  _getUser(){
+  _getUser() {
     usuario = _auth.currentUser;
     notifyListeners();
   }
@@ -29,9 +29,9 @@ class AuthService extends ChangeNotifier{
       await _auth.createUserWithEmailAndPassword(email: email, password: senha);
       _getUser();
     } on FirebaseAuthException catch (e) {
-      if(e.code == 'weak-password'){
+      if (e.code == 'weak-password') {
         throw AuthException('A senha precisa ter pelo menos 6 caracteres.');
-      } else if(e.code == 'email-already-in-use'){
+      } else if (e.code == 'email-already-in-use') {
         throw AuthException('Este email já está cadastrado.');
       }
     }
@@ -42,9 +42,9 @@ class AuthService extends ChangeNotifier{
       await _auth.signInWithEmailAndPassword(email: email, password: senha);
       _getUser();
     } on FirebaseAuthException catch (e) {
-      if(e.code == 'user-not-found'){
+      if (e.code == 'user-not-found') {
         throw AuthException('Email não encontrado.');
-      } else if(e.code == 'wrong-password'){
+      } else if (e.code == 'wrong-password') {
         throw AuthException('Senha incorreta.');
       }
     }
@@ -53,6 +53,16 @@ class AuthService extends ChangeNotifier{
   logout() async {
     await _auth.signOut();
     _getUser();
-  }  
+  }
 
+  redefinir(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      _getUser();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw AuthException('Email não encontrado.');
+      }
+    }
+  }
 }

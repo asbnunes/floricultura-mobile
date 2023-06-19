@@ -6,6 +6,7 @@ import 'package:floricultura/screens/historico_de_pedidos.dart';
 import 'package:floricultura/screens/home.dart';
 import 'package:floricultura/screens/informacoes_usuario.dart';
 import 'package:floricultura/screens/pagamento.dart';
+import 'package:floricultura/screens/redefinir_senha.dart';
 import 'package:floricultura/screens/search.dart';
 import 'package:floricultura/services/auth_services.dart';
 import 'package:floricultura/widgets/auth_check.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
           '/detalhes-pedido': (context) => const DetalhesPedido(),
           '/pagamento': (context) => const Pagamento(),
           '/meus-pedidos': (context) => const HistoricoPedidos(),
+          '/redefinir':(context) => const RedefinirSenha(),
         },
       ),
     );
