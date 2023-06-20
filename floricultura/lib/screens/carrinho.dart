@@ -1,3 +1,4 @@
+import 'package:floricultura/database/pedido_repository.dart';
 import 'package:floricultura/models/loja_flores.dart';
 import 'package:floricultura/widgets/botao_geral.dart';
 import 'package:floricultura/widgets/divisor.dart';
@@ -8,6 +9,7 @@ import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/flor.dart';
+import '../models/pedido.dart';
 
 class Carrinho extends StatefulWidget {
   const Carrinho({super.key});
@@ -17,19 +19,48 @@ class Carrinho extends StatefulWidget {
 }
 
 class _CarrinhoState extends State<Carrinho> {
-
-  void removerCarrinho(Flor flor){
+  void removerCarrinho(Flor flor) {
     Provider.of<LojaFlores>(context, listen: false).removerDoCarrinho(flor);
   }
 
   @override
   Widget build(BuildContext context) {
+    PedidoRepository pedidoRepository = PedidoRepository();
 
     var carrinho = Provider.of<LojaFlores>(context).carrinho;
     double total = 0;
 
     for (var flor in carrinho) {
       total += flor.preco;
+    }
+
+    void comprar(LojaFlores value) async {
+      List<String> itens = value.carrinho.map((flor) {
+        return '${flor.nome} ${flor.corEscolhida}';
+      }).toList();
+
+      Pedido pedido = Pedido(
+        itens: itens,
+        total: total,
+      );
+      try {
+        await pedidoRepository.placePedido(pedido);
+        // Place any additional logic or navigation after the order is placed
+      } catch (e) {
+        // Handle any exceptions that occur during the order placement
+        print('Error placing order: $e');
+      }
+    }
+
+    void carrinhoVazio(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text('Carrinho Vazio'),
+          );
+        },
+      );
     }
 
     return Consumer<LojaFlores>(
@@ -55,12 +86,13 @@ class _CarrinhoState extends State<Carrinho> {
                   itemBuilder: (context, index) {
                     Flor flores = value.carrinho[index];
                     return FlorTile(
-                        flor: flores,
-                        displayCor: true,
-                        icon: IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () => removerCarrinho(flores),
-                        ),);
+                      flor: flores,
+                      displayCor: true,
+                      icon: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () => removerCarrinho(flores),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -82,9 +114,11 @@ class _CarrinhoState extends State<Carrinho> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: const Botao(
+                child: Botao(
                   text: 'Comprar',
-                  screenName: 'pagamento',
+                  onPressed: () => value.carrinho.isNotEmpty
+                      ? comprar(value)
+                      : carrinhoVazio(context),
                 ),
               ),
               const SizedBox(height: 20),

@@ -11,7 +11,6 @@ class Botao extends StatelessWidget {
     final Map<String, String> routes = {
       'catalogo' : '/catalogo',
       'main' : '/main',
-      'detalhes-pedido' : '/detalhes-pedido',
       'produto-page' : '/produto-page',
       'pagamento' : '/pagamento',
       'meus-pedidos': '/meus-pedidos',
