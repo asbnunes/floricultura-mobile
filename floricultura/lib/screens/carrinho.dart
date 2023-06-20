@@ -45,9 +45,16 @@ class _CarrinhoState extends State<Carrinho> {
       );
       try {
         await pedidoRepository.placePedido(pedido);
-        // Place any additional logic or navigation after the order is placed
+        value.esvaziarCarrinho();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const AlertDialog(
+              title: Text('Compra Efetuada com sucesso!'),
+            );
+          },
+        );
       } catch (e) {
-        // Handle any exceptions that occur during the order placement
         print('Error placing order: $e');
       }
     }
