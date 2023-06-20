@@ -21,4 +21,9 @@ class LojaFlores extends ChangeNotifier{
     _carrinho.remove(flor);
     notifyListeners();
   }
+
+  void esvaziarCarrinho(){
+    _carrinho.clear();
+    notifyListeners();
+  }
 }
