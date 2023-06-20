@@ -2,12 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/flor.dart';
 
-class DBFirestore {
-  DBFirestore._();
-  static final DBFirestore _instance = DBFirestore._();
-  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  factory DBFirestore() => _instance;
+class FlorRepository {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<List<Flor>> fetchFlores() async {
     final QuerySnapshot<Map<String, dynamic>> snapshot =

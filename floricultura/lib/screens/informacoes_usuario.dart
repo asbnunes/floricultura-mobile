@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floricultura/services/auth_services.dart';
 import 'package:floricultura/widgets/botao_geral.dart';
-import 'package:floricultura/widgets/divisor.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +36,6 @@ class _InfoUsuario extends State<InfoUsuario> {
               alignment: Alignment.center,
               tamanho: 30,
             ),
-            const LinhaDivisora(),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(

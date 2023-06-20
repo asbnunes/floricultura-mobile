@@ -1,4 +1,4 @@
-import 'package:floricultura/database/db_firestore.dart';
+import 'package:floricultura/database/flor_repository.dart';
 import 'package:floricultura/models/loja_flores.dart';
 import 'package:floricultura/widgets/flor_tile.dart';
 import 'package:floricultura/widgets/icone.dart';
@@ -17,12 +17,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late Future<List<Flor>> _flores;
-  final DBFirestore _dbFirestore = DBFirestore();
+  final FlorRepository _florRepository = FlorRepository();
 
   @override
   void initState() {
     super.initState();
-    _flores = _dbFirestore.fetchFlores();
+    _flores = _florRepository.fetchFlores();
   }
 
   @override
