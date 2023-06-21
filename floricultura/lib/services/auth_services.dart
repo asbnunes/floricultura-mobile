@@ -24,7 +24,7 @@ class AuthService extends ChangeNotifier {
     });
   }
 
-  _getUser() {
+  getUser() {
     usuario = _auth.currentUser != null
         ? Usuario(
             id: _auth.currentUser!.uid,
@@ -39,7 +39,7 @@ class AuthService extends ChangeNotifier {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: senha);
       await _createUserInFirestore(userCredential.user!, senha);
-      _getUser();
+      getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthException('A senha precisa ter pelo menos 6 caracteres.');
@@ -52,7 +52,7 @@ class AuthService extends ChangeNotifier {
   login(String email, String senha) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: senha);
-      _getUser();
+      getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw AuthException('Email não encontrado.');
@@ -64,13 +64,13 @@ class AuthService extends ChangeNotifier {
 
   logout() async {
     await _auth.signOut();
-    _getUser();
+    getUser();
   }
 
   redefinir(String email) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      _getUser();
+      getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw AuthException('Email não encontrado.');

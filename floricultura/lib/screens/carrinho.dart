@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/flor.dart';
 import '../models/pedido.dart';
+import '../services/auth_services.dart';
 
 class Carrinho extends StatefulWidget {
   const Carrinho({super.key});
@@ -26,6 +27,7 @@ class _CarrinhoState extends State<Carrinho> {
   @override
   Widget build(BuildContext context) {
     PedidoRepository pedidoRepository = PedidoRepository();
+    AuthService authService = Provider.of<AuthService>(context);
 
     var carrinho = Provider.of<LojaFlores>(context).carrinho;
     double total = 0;
@@ -43,8 +45,11 @@ class _CarrinhoState extends State<Carrinho> {
         itens: itens,
         total: total,
       );
+
+    String userId = authService.usuario?.id ?? '';
+
       try {
-        await pedidoRepository.placePedido(pedido);
+        await pedidoRepository.placePedido(pedido, userId);
         value.esvaziarCarrinho();
         showDialog(
           context: context,
