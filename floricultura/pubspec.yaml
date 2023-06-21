@@ -43,6 +43,7 @@ dependencies:
   firebase_storage: 
   firebase_messaging: 
   google_nav_bar: ^5.0.6
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:
