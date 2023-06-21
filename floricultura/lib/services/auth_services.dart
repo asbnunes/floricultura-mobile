@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:floricultura/models/usuario.dart';
 import 'package:floricultura/services/auth_exceptions.dart';
+import 'package:floricultura/utils/codificador_senha.dart';
 import 'package:flutter/material.dart';
 
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  User? usuario;
+  Usuario? usuario;
   bool isLoading = true;
 
   AuthService() {
@@ -13,20 +16,29 @@ class AuthService extends ChangeNotifier {
 
   _authCheck() {
     _auth.authStateChanges().listen((User? user) {
-      usuario = (user == null) ? null : user;
+      usuario = (user == null)
+          ? null
+          : Usuario(id: user.uid, email: user.email!, senha: '');
       isLoading = false;
       notifyListeners();
     });
   }
 
   _getUser() {
-    usuario = _auth.currentUser;
+    usuario = _auth.currentUser != null
+        ? Usuario(
+            id: _auth.currentUser!.uid,
+            email: _auth.currentUser!.email!,
+            senha: '')
+        : null;
     notifyListeners();
   }
 
   registrar(String email, String senha) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: senha);
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: senha);
+      await _createUserInFirestore(userCredential.user!, senha);
       _getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -64,5 +76,14 @@ class AuthService extends ChangeNotifier {
         throw AuthException('Email não encontrado.');
       }
     }
+  }
+
+  _createUserInFirestore(User user, String senha) async {
+    final firestore = FirebaseFirestore.instance;
+    final userData = {
+      'email': user.email,
+      'senha': CodificadorSenha.codificar(senha),
+    };
+    await firestore.collection('usuarios').doc(user.uid).set(userData);
   }
 }
