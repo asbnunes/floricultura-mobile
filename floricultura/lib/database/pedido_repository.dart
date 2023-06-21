@@ -4,32 +4,37 @@ import 'package:floricultura/models/pedido.dart';
 class PedidoRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> placePedido(Pedido pedido) async {
+  Future<void> placePedido(Pedido pedido, String userId) async {
     try {
-      await _firestore.collection('pedidos').add({
+      await _firestore.collection('pedidos').doc(userId).set({
         'itens': pedido.itens,
         'total': pedido.total,
       });
     } catch (e) {
-      throw Exception('Error placing order: $e');
+      throw Exception('Ocorreu um erro na hora de fazer o pedido: $e');
     }
   }
 
-  Future<List<Pedido>> fetchPedido() async {
-    final QuerySnapshot<Map<String, dynamic>> snapshot =
-        await _firestore.collection('pedidos').get();
+  Future<List<Pedido>> fetchPedido(String userId) async {
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await _firestore.collection('pedidos').doc(userId).get();
 
-    return snapshot.docs.map((DocumentSnapshot<Map<String, dynamic>> doc) {
-      final data = doc.data();
+    final data = snapshot.data();
 
-      if (data == null) {
-        throw Exception("Data is null");
-      }
+    if (data == null) {
+      return[];
+    }
 
-      return Pedido(
-        itens: List<String>.from(data['itens']),
-        total: data['total'],
-      );
-    }).toList();
+    final pedidoData = {
+      'itens': List<String>.from(data['itens']),
+      'total': data['total'],
+    };
+
+    final pedido = Pedido(
+      itens: pedidoData['itens'],
+      total: pedidoData['total'],
+    );
+
+    return [pedido];
   }
 }

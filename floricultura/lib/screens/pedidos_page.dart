@@ -2,13 +2,15 @@ import 'package:floricultura/models/pedido.dart';
 import 'package:floricultura/widgets/botao_retornar.dart';
 import 'package:floricultura/widgets/pedido_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../database/pedido_repository.dart';
+import '../services/auth_services.dart';
 import '../widgets/icone.dart';
 import '../widgets/widget_texto.dart';
 
 class PedidosPagina extends StatefulWidget {
-  const PedidosPagina({super.key});
+  const PedidosPagina({Key? key}) : super(key: key);
 
   @override
   State<PedidosPagina> createState() => _PedidosPaginaState();
@@ -17,11 +19,26 @@ class PedidosPagina extends StatefulWidget {
 class _PedidosPaginaState extends State<PedidosPagina> {
   late Future<List<Pedido>> _pedidos;
   final PedidoRepository _pedidoRepository = PedidoRepository();
+  late String _userId;
+  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    _pedidos = _pedidoRepository.fetchPedido();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getUser();
+    });
+  }
+
+  void _getUser() async {
+    AuthService authService = Provider.of<AuthService>(context, listen: false);
+    await authService.getUser();
+    final userId = authService.usuario?.id ?? '';
+    setState(() {
+      _userId = userId;
+      _pedidos = _pedidoRepository.fetchPedido(_userId);
+      _isInitialized = true;
+    });
   }
 
   @override
@@ -48,22 +65,24 @@ class _PedidosPaginaState extends State<PedidosPagina> {
                 height: 10,
               ),
               Expanded(
-                child: FutureBuilder<List<Pedido>>(
-                  future: _pedidos,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      return ListView.builder(
-                        itemCount: snapshot.data?.length ?? 0,
-                        itemBuilder: (context, index) {
-                          final pedidos = snapshot.data![index];
-                          return PedidoTile(pedido: pedidos);
+                child: _isInitialized
+                    ? FutureBuilder<List<Pedido>>(
+                        future: _pedidos,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return ListView.builder(
+                              itemCount: snapshot.data?.length ?? 0,
+                              itemBuilder: (context, index) {
+                                final pedidos = snapshot.data![index];
+                                return PedidoTile(pedido: pedidos);
+                              },
+                            );
+                          }
                         },
-                      );
-                    }
-                  },
-                ),
+                      )
+                    : Container(),
               ),
             ],
           ),
