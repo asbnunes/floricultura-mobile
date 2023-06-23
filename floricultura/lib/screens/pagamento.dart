@@ -212,10 +212,11 @@ class _PagamentoState extends State<Pagamento> {
                             },
                           ).then((value) {
                             Navigator.pushAndRemoveUntil(
-  context,
-  MaterialPageRoute(builder: (context) => const BottomNavBar()),
-  (route) => false,
-);
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const BottomNavBar()),
+                              (route) => false,
+                            );
                           });
                           value.esvaziarCarrinho();
                         }
