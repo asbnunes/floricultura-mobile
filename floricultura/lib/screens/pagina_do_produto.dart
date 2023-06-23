@@ -17,7 +17,7 @@ class PaginaDoProduto extends StatefulWidget {
 }
 
 class _PaginaDoProdutoState extends State<PaginaDoProduto> {
-  late String corEscolhida;
+  String corEscolhida = '';
 
   @override
   void initState() {
@@ -27,27 +27,35 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
 
   @override
   Widget build(BuildContext context) {
-    
     void addCarrinho(Flor flor) {
-      Flor copyFlor = Flor(
-        nome: flor.nome,
-        preco: flor.preco,
-        imagem: flor.imagem,
-        opcoesDeCores: List<String>.from(flor.opcoesDeCores),
-        corEscolhida: flor.corEscolhida,
-      );
+      if (corEscolhida.isNotEmpty) {
+        Flor copyFlor = Flor(
+          nome: flor.nome,
+          preco: flor.preco,
+          imagem: flor.imagem,
+          opcoesDeCores: List<String>.from(flor.opcoesDeCores),
+          corEscolhida: corEscolhida,
+        );
 
-      Provider.of<LojaFlores>(context, listen: false)
-          .adicionarAoCarrinho(copyFlor);
+        Provider.of<LojaFlores>(context, listen: false)
+            .adicionarAoCarrinho(copyFlor);
 
-      showDialog(
-        context: context,
-        builder: (context) => const AlertDialog(
-          title: Text("Adicionado ao carrinho com sucesso"),
-        ),
-      ).then((value) {
-        Navigator.pop(context);
-      });
+        showDialog(
+          context: context,
+          builder: (context) => const AlertDialog(
+            title: Text("Adicionado ao carrinho com sucesso"),
+          ),
+        ).then((value) {
+          Navigator.pop(context);
+        });
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => const AlertDialog(
+            title: Text("Selecione uma cor antes de adicionar ao carrinho"),
+          ),
+        );
+      }
     }
 
     String precoFormatado = FormatadorPreco.formatPrice(widget.flor.preco);
@@ -86,22 +94,19 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
                 tamanho: 30,
                 alignment: Alignment.center,
               ),
-              SingleChildScrollView(
-                child: Column(
-                  children: widget.flor.opcoesDeCores.map((color) {
-                    return RadioListTile(
-                      title: Text(color),
-                      value: color,
-                      groupValue: corEscolhida,
-                      onChanged: (value) {
-                        setState(() {
-                          corEscolhida = value.toString();
-                          widget.flor.corEscolhida = corEscolhida;
-                        });
-                      },
-                    );
-                  }).toList(),
-                ),
+              Column(
+                children: widget.flor.opcoesDeCores.map((color) {
+                  return RadioListTile(
+                    title: Text(color),
+                    value: color,
+                    groupValue: corEscolhida,
+                    onChanged: (value) {
+                      setState(() {
+                        corEscolhida = value.toString();
+                      });
+                    },
+                  );
+                }).toList(),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -6,8 +6,7 @@ class PedidoRepository {
 
   Future<void> placePedido(Pedido pedido, String userId) async {
     try {
-      await _firestore.collection('pedidos').add({
-        'userId' : userId,
+      await _firestore.collection('pedidos').doc(userId).set({
         'itens': pedido.itens,
         'total': pedido.total,
       });
@@ -16,35 +15,34 @@ class PedidoRepository {
     }
   }
 
-  Future<List<Pedido>> fetchPedido(String userId) async {
+  Future<void> deletePedido(String userId) async {
   try {
-    final QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore
-        .collection('pedidos')
-        .where('userId', isEqualTo: userId)
-        .get();
+    await _firestore.collection('pedidos').doc(userId).delete();
+  } catch (e) {
+    throw Exception('Ocorreu um erro ao excluir o pedido: $e');
+    }
+  }
 
-    final List<Pedido> pedidos = [];
+  Future<List<Pedido>> fetchPedido(String userId) async {
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await _firestore.collection('pedidos').doc(userId).get();
 
-    for (final doc in snapshot.docs) {
-      final data = doc.data();
-      final pedidoData = {
-        'userId': data['userId'],
-        'itens': List<String>.from(data['itens']),
-        'total': data['total'],
-      };
+    final data = snapshot.data();
 
-      final pedido = Pedido(
-        userId: pedidoData['userId'],
-        itens: pedidoData['itens'],
-        total: pedidoData['total'],
-      );
-
-      pedidos.add(pedido);
+    if (data == null) {
+      return[];
     }
 
-    return pedidos;
-  } catch (e) {
-    throw Exception('Ocorreu um erro ao buscar os pedidos: $e');
+    final pedidoData = {
+      'itens': List<String>.from(data['itens']),
+      'total': data['total'],
+    };
+
+    final pedido = Pedido(
+      itens: pedidoData['itens'],
+      total: pedidoData['total'],
+    );
+
+    return [pedido];
   }
-}
 }

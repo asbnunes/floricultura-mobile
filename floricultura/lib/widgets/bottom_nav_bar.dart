@@ -13,7 +13,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
-  final PageController _pageController = PageController(initialPage: 0);
+  PageController _pageController = PageController(initialPage: 0);
 
   final List<Widget> _screens = const [
     Home(),
@@ -32,7 +32,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       _currentIndex = index;
       _pageController.animateToPage(
         index,
-        duration: const Duration(milliseconds: 200),
+        duration: Duration(milliseconds: 200),
         curve: Curves.easeInOut,
       );
     });
