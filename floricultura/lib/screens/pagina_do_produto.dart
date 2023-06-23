@@ -86,20 +86,22 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
                 tamanho: 30,
                 alignment: Alignment.center,
               ),
-              Column(
-                children: widget.flor.opcoesDeCores.map((color) {
-                  return RadioListTile(
-                    title: Text(color),
-                    value: color,
-                    groupValue: corEscolhida,
-                    onChanged: (value) {
-                      setState(() {
-                        corEscolhida = value.toString();
-                        widget.flor.corEscolhida = corEscolhida;
-                      });
-                    },
-                  );
-                }).toList(),
+              SingleChildScrollView(
+                child: Column(
+                  children: widget.flor.opcoesDeCores.map((color) {
+                    return RadioListTile(
+                      title: Text(color),
+                      value: color,
+                      groupValue: corEscolhida,
+                      onChanged: (value) {
+                        setState(() {
+                          corEscolhida = value.toString();
+                          widget.flor.corEscolhida = corEscolhida;
+                        });
+                      },
+                    );
+                  }).toList(),
+                ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
