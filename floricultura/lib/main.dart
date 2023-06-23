@@ -1,5 +1,4 @@
 import 'package:floricultura/models/loja_flores.dart';
-import 'package:floricultura/screens/pagamento.dart';
 import 'package:floricultura/screens/pedidos_page.dart';
 import 'package:floricultura/screens/redefinir_senha.dart';
 import 'package:floricultura/services/auth_services.dart';
@@ -37,7 +36,6 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => const AuthCheck(),
-          '/pagamento': (context) => const Pagamento(),
           '/meus-pedidos': (context) => const PedidosPagina(),
           '/redefinir':(context) => const RedefinirSenha(),
         },

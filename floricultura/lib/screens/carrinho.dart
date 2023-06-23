@@ -1,5 +1,5 @@
-import 'package:floricultura/database/pedido_repository.dart';
 import 'package:floricultura/models/loja_flores.dart';
+import 'package:floricultura/screens/pagamento.dart';
 import 'package:floricultura/widgets/botao_geral.dart';
 import 'package:floricultura/widgets/divisor.dart';
 import 'package:floricultura/widgets/flor_tile.dart';
@@ -9,8 +9,6 @@ import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/flor.dart';
-import '../models/pedido.dart';
-import '../services/auth_services.dart';
 
 class Carrinho extends StatefulWidget {
   const Carrinho({super.key});
@@ -26,42 +24,11 @@ class _CarrinhoState extends State<Carrinho> {
 
   @override
   Widget build(BuildContext context) {
-    PedidoRepository pedidoRepository = PedidoRepository();
-    AuthService authService = Provider.of<AuthService>(context);
-
     var carrinho = Provider.of<LojaFlores>(context).carrinho;
     double total = 0;
 
     for (var flor in carrinho) {
       total += flor.preco;
-    }
-
-    void comprar(LojaFlores value) async {
-      List<String> itens = value.carrinho.map((flor) {
-        return '${flor.nome} ${flor.corEscolhida}';
-      }).toList();
-
-      Pedido pedido = Pedido(
-        itens: itens,
-        total: total,
-      );
-
-    String userId = authService.usuario?.id ?? '';
-
-      try {
-        await pedidoRepository.placePedido(pedido, userId);
-        value.esvaziarCarrinho();
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const AlertDialog(
-              title: Text('Compra Efetuada com sucesso!'),
-            );
-          },
-        );
-      } catch (e) {
-        print('Error placing order: $e');
-      }
     }
 
     void carrinhoVazio(BuildContext context) {
@@ -129,7 +96,12 @@ class _CarrinhoState extends State<Carrinho> {
                 child: Botao(
                   text: 'Comprar',
                   onPressed: () => value.carrinho.isNotEmpty
-                      ? comprar(value)
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Pagamento(total: total),
+                          ),
+                        )
                       : carrinhoVazio(context),
                 ),
               ),
