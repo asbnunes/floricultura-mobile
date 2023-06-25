@@ -57,5 +57,4 @@ class PedidoRepository {
     throw Exception('Ocorreu um erro ao buscar os pedidos: $e');
   }
 }
-
 }
