@@ -30,6 +30,18 @@ class _PedidosPaginaState extends State<PedidosPagina> {
     });
   }
 
+  Future<void> _delete(String pedidoId) async {
+    try {
+      await _pedidoRepository.deletePedido(pedidoId);
+      setState(() {
+        _pedidos = _pedidoRepository.fetchPedido(_userId);
+      });
+    } catch (e) {
+      throw Exception('Ocorreu um erro ao excluir o pedido: $e');
+    }
+  }
+
+
   void _getUser() async {
     AuthService authService = Provider.of<AuthService>(context, listen: false);
     await authService.getUser();
@@ -79,7 +91,7 @@ class _PedidosPaginaState extends State<PedidosPagina> {
                                 return PedidoTile(
                                   pedido: pedido,
                                   onDelete: () {
-                                    _pedidoRepository.deletePedido(pedido.id); // Passe o ID do pedido aqui
+                                    _delete(pedido.id);
                                   },
                                 );
                               },
