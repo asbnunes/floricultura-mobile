@@ -46,6 +46,7 @@ class _PagamentoState extends State<Pagamento> {
         userId: userId,
         itens: itens,
         total: widget.total,
+        id: '',
       );
 
       try {

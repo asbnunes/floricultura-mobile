@@ -4,8 +4,14 @@ import 'package:flutter/material.dart';
 
 class PedidoTile extends StatelessWidget {
   final Pedido pedido;
+  final VoidCallback onDelete;
 
-  const PedidoTile({super.key, required this.pedido});
+  const PedidoTile({Key? key, required this.pedido, required this.onDelete})
+      : super(key: key);
+
+  void _deletePedido() {
+    onDelete();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +25,29 @@ class PedidoTile extends StatelessWidget {
           color: const Color(0xffffb3b3),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Column(
+        child: Stack(
           children: [
-            ...pedido.itens.map((item) => ListTile(
-              title: Text(item),
-            )),
-            ListTile(
-              title: const Text('Total'),
-              subtitle: Text(totalFormatado),
+            Column(
+              children: [
+                ...pedido.itens.map((item) => ListTile(
+                      title: Text(item),
+                    )),
+                ListTile(
+                  title: const Text('Total'),
+                  subtitle: Text(totalFormatado),
+                ),
+              ],
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: IconButton(
+                onPressed: _deletePedido,
+                icon: const Icon(
+                  Icons.clear,
+                  color: Color.fromARGB(220, 68, 68, 68),
+                ),
+              ),
             ),
           ],
         ),

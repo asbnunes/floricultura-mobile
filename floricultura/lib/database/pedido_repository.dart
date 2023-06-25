@@ -16,6 +16,14 @@ class PedidoRepository {
     }
   }
 
+  Future<void> deletePedido(String pedidoId) async {
+  try {
+    await _firestore.collection('pedidos').doc(pedidoId).delete();
+  } catch (e) {
+    throw Exception('Ocorreu um erro ao excluir o pedido: $e');
+    }
+  }
+
   Future<List<Pedido>> fetchPedido(String userId) async {
   try {
     final QuerySnapshot<Map<String, dynamic>> snapshot = await _firestore
@@ -28,12 +36,14 @@ class PedidoRepository {
     for (final doc in snapshot.docs) {
       final data = doc.data();
       final pedidoData = {
+        'id': doc.id,
         'userId': data['userId'],
         'itens': List<String>.from(data['itens']),
         'total': data['total'],
       };
 
       final pedido = Pedido(
+        id: pedidoData['id'],
         userId: pedidoData['userId'],
         itens: pedidoData['itens'],
         total: pedidoData['total'],

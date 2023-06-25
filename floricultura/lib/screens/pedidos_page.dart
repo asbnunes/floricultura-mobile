@@ -75,8 +75,13 @@ class _PedidosPaginaState extends State<PedidosPagina> {
                             return ListView.builder(
                               itemCount: snapshot.data?.length ?? 0,
                               itemBuilder: (context, index) {
-                                final pedidos = snapshot.data![index];
-                                return PedidoTile(pedido: pedidos);
+                                final pedido = snapshot.data![index];
+                                return PedidoTile(
+                                  pedido: pedido,
+                                  onDelete: () {
+                                    _pedidoRepository.deletePedido(pedido.id); // Passe o ID do pedido aqui
+                                  },
+                                );
                               },
                             );
                           }
