@@ -17,7 +17,7 @@ class PaginaDoProduto extends StatefulWidget {
 }
 
 class _PaginaDoProdutoState extends State<PaginaDoProduto> {
-  String corEscolhida = '';
+  late String corEscolhida;
 
   @override
   void initState() {
@@ -27,6 +27,7 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
 
   @override
   Widget build(BuildContext context) {
+    
     void addCarrinho(Flor flor) {
       if (corEscolhida.isNotEmpty) {
         Flor copyFlor = Flor(
@@ -94,19 +95,22 @@ class _PaginaDoProdutoState extends State<PaginaDoProduto> {
                 tamanho: 30,
                 alignment: Alignment.center,
               ),
-              Column(
-                children: widget.flor.opcoesDeCores.map((color) {
-                  return RadioListTile(
-                    title: Text(color),
-                    value: color,
-                    groupValue: corEscolhida,
-                    onChanged: (value) {
-                      setState(() {
-                        corEscolhida = value.toString();
-                      });
-                    },
-                  );
-                }).toList(),
+              SingleChildScrollView(
+                child: Column(
+                  children: widget.flor.opcoesDeCores.map((color) {
+                    return RadioListTile(
+                      title: Text(color),
+                      value: color,
+                      groupValue: corEscolhida,
+                      onChanged: (value) {
+                        setState(() {
+                          corEscolhida = value.toString();
+                          widget.flor.corEscolhida = corEscolhida;
+                        });
+                      },
+                    );
+                  }).toList(),
+                ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

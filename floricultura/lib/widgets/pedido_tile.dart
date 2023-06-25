@@ -2,9 +2,6 @@ import 'package:floricultura/models/pedido.dart';
 import 'package:floricultura/utils/formatador_texto.dart';
 import 'package:flutter/material.dart';
 
-
-
-
 class PedidoTile extends StatelessWidget {
   final Pedido pedido;
   final VoidCallback onDelete;

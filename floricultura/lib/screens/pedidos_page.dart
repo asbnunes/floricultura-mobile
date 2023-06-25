@@ -79,7 +79,7 @@ class _PedidosPaginaState extends State<PedidosPagina> {
                                 return PedidoTile(
                                   pedido: pedido,
                                   onDelete: () {
-                                    _pedidoRepository.deletePedido(_userId); // Chama o método de exclusão do PedidoRepository
+                                    _pedidoRepository.deletePedido(pedido.id); // Passe o ID do pedido aqui
                                   },
                                 );
                               },
