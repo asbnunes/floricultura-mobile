@@ -42,11 +42,32 @@ class PedidoTile extends StatelessWidget {
               top: 10,
               right: 10,
               child: IconButton(
-                onPressed: _deletePedido,
-                icon: const Icon(
-                  Icons.clear,
-                  color: Color.fromARGB(220, 68, 68, 68),
-                ),
+                icon: const Icon(Icons.delete),
+                color: const Color(0xff6c4848),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      content:
+                          const Text('Tem certeza que quer remover o pedido do histórico?'),
+                      actions: [
+                        TextButton(
+                          child: const Text('Não'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: Text('Sim'),
+                          onPressed: () {
+                            onDelete();
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ],
