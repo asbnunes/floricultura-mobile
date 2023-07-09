@@ -58,7 +58,7 @@ class PedidoTile extends StatelessWidget {
                           },
                         ),
                         TextButton(
-                          child: Text('Sim'),
+                          child: const Text('Sim'),
                           onPressed: () {
                             onDelete();
                             Navigator.pop(context);
