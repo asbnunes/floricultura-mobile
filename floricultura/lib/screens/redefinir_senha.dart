@@ -3,7 +3,7 @@ import 'package:floricultura/widgets/campo_texto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../services/auth_exceptions.dart';
+//import '../services/auth_exceptions.dart';
 import '../services/auth_services.dart';
 import '../widgets/botao_retornar.dart';
 

@@ -40,7 +40,7 @@ class _PagamentoState extends State<Pagamento> {
         return '${flor.nome} ${flor.corEscolhida}';
       }).toList();
 
-      String userId = authService.usuario?.id ?? '';
+      String userId = authService.usuario?.uid ?? '';
 
       Pedido pedido = Pedido(
         userId: userId,

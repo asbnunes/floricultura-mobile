@@ -1,4 +1,3 @@
-import 'package:floricultura/services/auth_exceptions.dart';
 import 'package:floricultura/services/auth_services.dart';
 import 'package:floricultura/widgets/widget_texto.dart';
 import 'package:flutter/material.dart';
@@ -45,16 +44,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void loginCheck() {
-    if (formKey.currentState!.validate()) {
-      if (isLogin) {
-        login();
-      } else {
-        registrar();
-      }
-    }
-  }
-
   login() async {
     try {
       await context.read<AuthService>().login(email.text, senha.text);
@@ -76,6 +65,10 @@ class _LoginScreenState extends State<LoginScreen> {
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Informe o Email';
+    } else if (!RegExp(
+            r'^[\w-]+(\.[\w-]+)*@([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}(\.[a-z]{2,})?$')
+        .hasMatch(value)) {
+      return 'Email inválido';
     }
     return null;
   }
@@ -128,7 +121,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Botao(
                   text: action,
-                  onPressed: loginCheck,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      if (isLogin) {
+                        login();
+                      } else {
+                        registrar();
+                      }
+                    }
+                  },
                 ),
                 TextButton(
                   onPressed: () => setFormAction(!isLogin),

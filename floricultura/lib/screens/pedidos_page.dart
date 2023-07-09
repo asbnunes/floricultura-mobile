@@ -45,7 +45,7 @@ class _PedidosPaginaState extends State<PedidosPagina> {
   void _getUser() async {
     AuthService authService = Provider.of<AuthService>(context, listen: false);
     await authService.getUser();
-    final userId = authService.usuario?.id ?? '';
+    final userId = authService.usuario?.uid ?? '';
     setState(() {
       _userId = userId;
       _pedidos = _pedidoRepository.fetchPedido(_userId);
